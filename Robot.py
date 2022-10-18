@@ -55,7 +55,7 @@ class Robot:
     self.finished = Value('b',1) # boolean to show if odometry updates are finished
 
     # if we want to block several instructions to be run together, we may want to use an explicit Lock
-    #self.lock_odometry = Lock()
+    self.lock_odometry = Lock()
     #self.lock_odometry.acquire()
     #print('hello world', i)
     #self.lock_odometry.release()
@@ -71,7 +71,7 @@ class Robot:
         w entra en dps y se convierte inmediatamente a radianes
     """
     print("setting speed to %.2f %.2f" % (v, w))
-    w=m.radians(w)
+    #w=m.radians(w)
     # compute the speed that should be set in each motor ...
     wL=(v-w*self.L/2)/self.R
     wR=(v+w*self.L/2)/self.R
@@ -176,4 +176,8 @@ class Robot:
   def stopOdometry(self):
     self.finished.value = True
     self.BP.reset_all()
+  
+
+    
+  
 

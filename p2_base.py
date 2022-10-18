@@ -6,7 +6,6 @@ import time
 import math as m
 from Robot import Robot
 
-
 def main(args):
   try: 
     if args.radioD < 0:
@@ -17,11 +16,53 @@ def main(args):
 
     print("X value at the beginning from main X= %.2f" %(robot.x.value))
 
-    robot.setSpeed(0,360/5)
+    ##Trayectoria8():
+    ###R=v/w -> v=R*w
+    ###teta=w*t -> w=teta/t
+    #robot.setSpeed(0,-(m.pi/2)/4)
+    #time.sleep(4)
+    #robot.setSpeed(200*m.pi/10,m.pi/10)
+    #time.sleep(10)
+    #robot.setSpeed(200*2*m.pi/20,-2*m.pi/20)
+    #time.sleep(20)
+    #robot.setSpeed(200*m.pi/10,m.pi/10)
+    #time.sleep(10)
+    #robot.setSpeed(0,0)
+    
+    #Trayectoria2
+    a=50 
+    d=100
+    r1=110
+    r2=300
+    beta=m.acos(d/r1)
+    print(beta)
+    alfa1=m.pi-2*beta
+    print(alfa1)
+    alfa2=m.pi+2*beta
+    print(alfa2)
+    #con estos datos beta=25Âº aprox y distEjes=300mm
+    robot.setSpeed(0,(m.pi/2)/4)
+    time.sleep(4)
+    robot.setSpeed(r1*(alfa1/2)/5,(-alfa1/2)/5)
     time.sleep(5)
-    lectura=robot.readSpeed()
-    print(lectura[0], " ,", m.degrees(lectura[1]))        
+    robot.setSpeed(r2/5,0)
+    time.sleep(5)
+    robot.setSpeed(r2*alfa2/20,-alfa2/20)
+    time.sleep(20)
+    robot.setSpeed(r2/5,0)
+    time.sleep(5)
+    robot.setSpeed(r1*(alfa1/2)/5,(-alfa1/2)/5)
+    time.sleep(5)
     robot.setSpeed(0,0)
+    
+    ##Girarsobresi():
+    #robot.setSpeed(0,360/5)
+    #time.sleep(5)
+    #lectura=robot.readSpeed()
+    #print(lectura[0], " ,", m.degrees(lectura[1]))        
+    #robot.setSpeed(0,0)
+    
+    
 
   except KeyboardInterrupt:
   # except the program gets interrupted by Ctrl+C on the keyboard.
@@ -46,3 +87,4 @@ if __name__ == "__main__":
   args = parser.parse_args()
 
   main(args)
+  
